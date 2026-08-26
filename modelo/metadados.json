@@ -1,0 +1,67 @@
+{
+  "modelo_nome": "Linear Múltipla",
+  "data_treino": "2026-08-26 11:27",
+  "features": [
+    "city",
+    "area",
+    "rooms",
+    "bathroom",
+    "parking spaces",
+    "floor",
+    "animal",
+    "furniture",
+    "hoa (R$)",
+    "populacao_estimada"
+  ],
+  "variavel_resposta": "rent amount (R$)",
+  "metricas_teste": {
+    "MAE": 1498.4685443045735,
+    "RMSE": 2401.6258935298974,
+    "R2": 0.5610004630143575
+  },
+  "ranges_treino": {
+    "area": {
+      "min": 11.0,
+      "max": 2000.0
+    },
+    "rooms": {
+      "min": 1.0,
+      "max": 13.0
+    },
+    "bathroom": {
+      "min": 1.0,
+      "max": 10.0
+    },
+    "parking spaces": {
+      "min": 0.0,
+      "max": 12.0
+    },
+    "floor": {
+      "min": 0.0,
+      "max": 301.0
+    },
+    "animal": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "furniture": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "hoa (R$)": {
+      "min": 0.0,
+      "max": 1117000.0
+    },
+    "populacao_estimada": {
+      "min": 1187974.0,
+      "max": 11904961.0
+    }
+  },
+  "cidades_validas": [
+    "Belo Horizonte",
+    "Campinas",
+    "Porto Alegre",
+    "Rio de Janeiro",
+    "São Paulo"
+  ]
+}
