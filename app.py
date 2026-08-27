@@ -1,23 +1,15 @@
-"""
-Checkpoint 4 — App Streamlit para Previsão de Aluguel
-Carrega o pipeline treinado (modelo/modelo.pkl) e permite previsões interativas.
-"""
-
 import streamlit as st
 import pandas as pd
-import numpy as np
 import joblib
 import json
 import os
 
-# --- Configuração da página ---
 st.set_page_config(
     page_title="Previsão de Aluguel — CP4",
     page_icon="🏠",
     layout="centered",
 )
 
-# --- CSS: limpo, profissional, sem exagero ---
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -53,7 +45,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Carregar modelo e metadados ---
 MODELO_PATH = "modelo/modelo.pkl"
 METADADOS_PATH = "modelo/metadados.json"
 
@@ -81,7 +72,6 @@ metadados = carregar_metadados()
 ranges = metadados["ranges_treino"]
 cidades = metadados["cidades_validas"]
 
-# --- Header ---
 st.markdown("# Previsão de Aluguel de Imóveis")
 st.caption(
     f"Modelo: {metadados['modelo_nome']} · "
@@ -91,7 +81,6 @@ st.caption(
 
 st.markdown("---")
 
-# --- Inputs ---
 col1, col2 = st.columns(2)
 
 with col1:
@@ -113,11 +102,7 @@ with col2:
 
 st.markdown("")
 
-# --- Predição ---
 if st.button("Calcular previsão", use_container_width=True):
-    animal_val = 1 if animal == "Sim" else 0
-    furniture_val = 1 if furniture == "Sim" else 0
-
     input_data = pd.DataFrame([{
         "city": city,
         "area": area,
@@ -125,13 +110,12 @@ if st.button("Calcular previsão", use_container_width=True):
         "bathroom": bathroom,
         "parking spaces": parking,
         "floor": floor,
-        "animal": animal_val,
-        "furniture": furniture_val,
+        "animal": 1 if animal == "Sim" else 0,
+        "furniture": 1 if furniture == "Sim" else 0,
         "hoa (R$)": hoa,
         "populacao_estimada": populacao_estimada,
     }])
 
-    # Alerta de extrapolação
     alertas = []
     for col, limites in ranges.items():
         valor = input_data[col].iloc[0]
@@ -146,7 +130,6 @@ if st.button("Calcular previsão", use_container_width=True):
         alerta_html += "</div>"
         st.markdown(alerta_html, unsafe_allow_html=True)
 
-    # Resultado
     predicao = pipeline.predict(input_data)[0]
     st.markdown(
         f"<div class='result-box'>Aluguel estimado: R$ {predicao:,.2f}</div>",
